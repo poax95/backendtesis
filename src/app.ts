@@ -15,7 +15,7 @@ app.use(express.json());
 //rutas
 app.use('/api', indexRoutes);
 
-//acarpeta para almacenamiento de archivos
+//carpeta para almacenamiento de archivos
 app.use('/uploads', express.static(path.resolve('uploads')));
 
 
