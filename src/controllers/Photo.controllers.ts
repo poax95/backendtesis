@@ -18,11 +18,13 @@ export async function getPhoto(req: Request, res: Response): Promise<Response> {
 export async function createPhoto(req: Request, res: Response): Promise<Response>
  {
 
-    const{ title, description, precio } = req.body;
+    const{ nombre, tienda,categoria , comentario, precio } = req.body;
     console.log(req.file?.path)
     const newPhoto = {
-        title: title,
-        description: description,
+        nombre: nombre,
+        tienda: tienda,
+        categoria: categoria,
+        comentario: comentario,
         precio: precio,
         imagePath: req.file?.path
      
@@ -52,10 +54,12 @@ export async function deletePhoto(req: Request, res: Response): Promise<Response
 //para actualizar informacion de una foto
 export async function updatePhoto(req: Request, rest: Response): Promise<Response>{
     const { id } = req.params;
-    const { title, description, precio } = req.body;
+    const { nombre, tienda, categoria, comentario, precio } = req.body;
     await Photo.findByIdAndUpdate(id, {
-       title,
-       description, 
+       nombre,
+       tienda,
+       categoria,
+       comentario, 
        precio
     }, {new: true});
     return rest.json({

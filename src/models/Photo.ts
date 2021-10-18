@@ -1,15 +1,19 @@
 import { Schema, model, Document} from "mongoose";
 
 const schema = new Schema({
-    title: String,
-    description: String,
+    nombre: String,
+    tienda: String,
+    categoria: String,
+    comentario: String,
     precio: String,
     imagePath: String
 });
 
 interface IPhoto extends Document{
-    title: string;
-    description: string;
+    nombre: string;
+    tienda: string;
+    categoria: string;
+    comentario: string;
     precio: string;
     imagePath: string;
 }
