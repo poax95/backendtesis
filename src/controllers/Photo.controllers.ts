@@ -14,7 +14,7 @@ export async function getPhoto(req: Request, res: Response): Promise<Response> {
     const photo = await Photo.findById(id);
     return res.json(photo);
 }
-     //datos que se entregaran al subir foto
+     //datos que se entregaran al subir el producto
 export async function createPhoto(req: Request, res: Response): Promise<Response>
  {
 

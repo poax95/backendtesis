@@ -1,12 +1,5 @@
 import app from './app'
-import {startConnection} from './database'
+import './database';
 
-
-async function main() {
-    startConnection();
-    await app.listen(app.get('port'));
-    console.log('server on port', app.get('port'));
-}
-
-main();
-
+app.listen(app.get('port'));
+console.log(`Listening on http://localhost:${app.get('port')}`);
