@@ -5,11 +5,11 @@ import {createPhoto, getPhotos, getPhoto, deletePhoto, updatePhoto} from '../con
 
 import multer from '../libs/multer'
 
-router.route('/photos')
+router.route('/newpr')
     .get(getPhotos)
     .post(multer.single('image'), createPhoto)
     
-router.route('/photos/:id')
+router.route('/newpr/:id')
     .get(getPhoto)
     .delete(deletePhoto)
     .put(updatePhoto)

@@ -24,7 +24,7 @@ app.use(passport.initialize());
 passport.use(passportMiddleware);
 
 //rutas
-app.use('/api', indexRoutes);
+app.use('/tienda', indexRoutes);
 
 app.use(authRoutes);
 
