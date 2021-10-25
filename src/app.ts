@@ -7,7 +7,7 @@ import passport from 'passport';
 import passportMiddleware  from './middlewares/passport';
 
 import authRoutes from './routes/auth.routes'
-
+import specialRoutes from './routes/special.routes';
 
 //inicializaciones
 const app = express();
@@ -30,6 +30,8 @@ app.use(authRoutes);
 
 //carpeta para almacenamiento de archivos
 app.use('/uploads', express.static(path.resolve('uploads')));
+
+app.use(specialRoutes);
 
 
 
