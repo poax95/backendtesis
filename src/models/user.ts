@@ -2,12 +2,20 @@ import { model, Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
 export interface IUser extends Document {
+  nombre: string;
+  apellido: string;
+  rut:string;
+  razon_social:string;
   email: string;
   password: string;
   comparePassword: (password: string) => Promise<Boolean>
 };
 
 const userSchema = new Schema({
+  nombre: String,
+  apellido: String,
+  rut: String,
+  razon_social:String,
   email: {
     type: String,
     unique: true,
@@ -19,6 +27,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   }
+
 });
 //cifrado de contraseña
 userSchema.pre<IUser>("save", async function(next) {

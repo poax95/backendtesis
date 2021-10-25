@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
 import jwt from "jsonwebtoken";
 import config from "../config/config";
+import user from "../models/user";
 
 function createToken(user: IUser) {
   return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret, {
@@ -9,7 +10,7 @@ function createToken(user: IUser) {
     expiresIn: 86400
   });
 }
-
+//para registrarse
 export const signUp = async (
   req: Request,
   res: Response
@@ -55,3 +56,8 @@ export const signIn = async (
     msg: "El email o contraseña son incorrectos"
   });
 };
+//funcion para mostrar los usuarios creados
+export async function getUsers(req: Request, res: Response): Promise<Response>{
+  const user = await User.find();
+  return res.json(user);
+}

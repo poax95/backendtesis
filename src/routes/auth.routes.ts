@@ -4,9 +4,14 @@ import {
   signUp,
 } from '../controllers/user.controllers'
 
-const router = Router();
+import {  getUsers } from '../controllers/user.controllers';
 
+const router = Router();
+ 
 router.post('/signup', signUp);
 router.post('/signin', signIn);
 
+router.route('/user')
+    .get(getUsers) 
+    
 export default router;
