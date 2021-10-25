@@ -5,7 +5,7 @@ import config from "../config/config";
 import user from "../models/user";
 
 function createToken(user: IUser) {
-  return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret, {
+  return jwt.sign({ id: user.id, email: user.email ,nombre: user.nombre, apellido :user.apellido}, config.jwtSecret, {
     
     expiresIn: 86400
   });

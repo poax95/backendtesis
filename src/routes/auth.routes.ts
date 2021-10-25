@@ -8,10 +8,10 @@ import {  getUsers } from '../controllers/user.controllers';
 
 const router = Router();
  
-router.post('/signup', signUp);
-router.post('/signin', signIn);
+router.post('/registro', signUp);
+router.post('/login', signIn);
 
 router.route('/user')
     .get(getUsers) 
-    
+
 export default router;
