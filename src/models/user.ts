@@ -27,6 +27,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   }
+  
 
 });
 //cifrado de contraseña

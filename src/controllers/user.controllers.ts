@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
 import jwt from "jsonwebtoken";
 import config from "../config/config";
-import user from "../models/user";
+
 
 function createToken(user: IUser) {
-  return jwt.sign({ id: user.id, email: user.email ,nombre: user.nombre, apellido :user.apellido}, config.jwtSecret, {
+  return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret, {
     
     expiresIn: 86400
   });
@@ -49,7 +49,7 @@ export const signIn = async (
 
   const isMatch = await user.comparePassword(req.body.password);
   if (isMatch) {
-    return res.status(400).json({ token: createToken(user) });
+    return res.status(200).json({ token: createToken(user) });
   }
 
   return res.status(400).json({
