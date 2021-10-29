@@ -49,7 +49,7 @@ export const signIn = async (
 
   const isMatch = await user.comparePassword(req.body.password);
   if (isMatch) {
-    return res.status(200).json({ token: createToken(user) });
+    return res.status(200).json({ token: createToken(user),user: user.id });
   }
 
   return res.status(400).json({
@@ -61,3 +61,10 @@ export async function getUsers(req: Request, res: Response): Promise<Response>{
   const user = await User.find();
   return res.json(user);
 }
+
+export async function getUser(req: Request, res: Response): Promise<Response> {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  return res.json(user);
+}
+

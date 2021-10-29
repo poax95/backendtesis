@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import {
+  getUser,
   signIn,
   signUp,
 } from '../controllers/user.controllers'
@@ -12,6 +13,9 @@ router.post('/registro', signUp);
 router.post('/login', signIn);
 
 router.route('/user')
-    .get(getUsers) 
+    .get(getUsers)
+
+router.route('/user/:id')
+    .get(getUser)     
 
 export default router;
