@@ -56,6 +56,12 @@ export const signIn = async (
     msg: "El email o contraseña son incorrectos"
   });
 };
+
+
+
+
+
+
 //funcion para mostrar los usuarios creados
 export async function getUsers(req: Request, res: Response): Promise<Response>{
   const user = await User.find();

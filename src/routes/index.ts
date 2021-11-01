@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import passport from "passport";
 const router = Router();
 
 import {createPhoto, getPhotos, getPhoto, deletePhoto, updatePhoto} from '../controllers/Photo.controllers'
@@ -12,8 +13,13 @@ router.route('/newpr')
     
 router.route('/newpr/:id')
     .get(getPhoto)
-    .delete(deletePhoto)
     .put(updatePhoto)
+router.delete(
+    '/newpr/:id',
+    passport.authenticate("jwt", { session: false }),
+     deletePhoto
+);
+    
   
 
 

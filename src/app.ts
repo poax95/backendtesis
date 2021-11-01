@@ -8,6 +8,7 @@ import passportMiddleware  from './middlewares/passport';
 
 import authRoutes from './routes/auth.routes'
 import specialRoutes from './routes/special.routes';
+import storeRoutes from './routes/store.routes'
 
 //inicializaciones
 const app = express();
@@ -27,6 +28,7 @@ passport.use(passportMiddleware);
 app.use('/tienda', indexRoutes);
 
 app.use(authRoutes);
+app.use(storeRoutes);
 
 //carpeta para almacenamiento de archivos
 app.use('/uploads', express.static(path.resolve('uploads')));
