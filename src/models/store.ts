@@ -2,6 +2,7 @@ import { Schema, model, Document} from "mongoose";
 
 const schema = new Schema({
     nombre_tienda: String,
+    usuario: String,
     instagram: String,
     twitter: String,
     facebook: String,
@@ -11,6 +12,7 @@ const schema = new Schema({
 
 interface IStore extends Document{
     nombre_tienda: string;
+    usuario: string;
     instagram: string;
     twitter: string;
     facebook: string;

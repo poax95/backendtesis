@@ -18,11 +18,12 @@ export async function getStore(req: Request, res: Response): Promise<Response> {
 export async function createStore(req: Request, res: Response): Promise<Response>
  {
 
-    const{ nombre_tienda, instagram , twitter, facebook, numero_telefono } = req.body;
+    const{ nombre_tienda,usuario, instagram , twitter, facebook, numero_telefono } = req.body;
     console.log(req.file?.path)
     const newStore = {
         nombre_tienda: nombre_tienda,
-        instagra: instagram,
+        usuario: usuario,
+        instagram: instagram,
         twitter: twitter,
         facebook: facebook,
         numero_telefono: numero_telefono,
