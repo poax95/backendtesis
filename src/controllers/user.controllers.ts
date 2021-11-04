@@ -73,4 +73,31 @@ export async function getUser(req: Request, res: Response): Promise<Response> {
   const user = await User.findById(id);
   return res.json(user);
 }
+export async function deleteUser(req: Request, res: Response): Promise<Response> {
+  const { id } = req.params;
+  const user = await User.findByIdAndRemove(id);
+  
+  return res.json({
+      message: 'usuario eliminado',
+      user
+  })
+}
+
+//para actualizar informacion de un usuario
+export async function updateUser(req: Request, rest: Response): Promise<Response>{
+  const { id } = req.params;
+  const { nombre, apellido, rut, email, password } = req.body;
+  await User.findByIdAndUpdate(id, {
+     nombre,
+     apellido,
+     rut,
+     email,
+     password
+  }, {new: true});
+  return rest.json({
+      message: 'actualizado correctamente',
+      updateUser
+  })
+
+}
 

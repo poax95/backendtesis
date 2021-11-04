@@ -1,11 +1,14 @@
 import {Router} from 'express'
 import {
+  deleteUser,
   getUser,
   signIn,
   signUp,
+  updateUser,
 } from '../controllers/user.controllers'
 
 import {  getUsers } from '../controllers/user.controllers';
+import passport from "passport";
 
 const router = Router();
  
@@ -16,6 +19,12 @@ router.route('/user')
     .get(getUsers)
 
 router.route('/user/:id')
-    .get(getUser)     
+    .get(getUser)
+    .put(updateUser) 
+router.delete(
+    '/user/:id',
+    passport.authenticate("jwt", { session: false }),
+    deleteUser
+  );        
 
 export default router;

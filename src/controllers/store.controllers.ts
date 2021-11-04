@@ -9,6 +9,12 @@ export async function getStores(req: Request, res: Response): Promise<Response>{
     return res.json(stores);
 }
 
+export async function getStoreUser(req: Request, res: Response): Promise<Response>{
+    const { usuario } = req.params;
+    const storeUser = await Store.findById(usuario);
+    return res.json(storeUser);
+}
+
 export async function getStore(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const store = await Store.findById(id);
@@ -39,7 +45,7 @@ export async function createStore(req: Request, res: Response): Promise<Response
     })
 
 };
-//funcion para eliminar foto
+//funcion para eliminar tienda
 export async function deleteStore(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const store = await Store.findByIdAndRemove(id);
