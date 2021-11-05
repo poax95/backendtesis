@@ -11,11 +11,11 @@ export async function getStores(req: Request, res: Response): Promise<Response>{
 
 export async function getStoreUser(req: Request, res: Response): Promise<Response>{
     const usuario = req.params.user;
-    console.log(usuario)
+    //console.log(usuario)
     const storeUser = await Store.find({
         usuario: usuario
     });
-    console.log(storeUser)
+    //console.log(storeUser)
     return res.json(storeUser);
 }
 
