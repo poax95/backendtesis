@@ -10,8 +10,10 @@ export async function getStores(req: Request, res: Response): Promise<Response>{
 }
 
 export async function getStoreUser(req: Request, res: Response): Promise<Response>{
-    const { usuario } = req.params;
-    const storeUser = await Store.findById(usuario);
+    const usuario = req.params;
+    console.log(usuario)
+    const storeUser = await Store.find({ usuario});
+    
     return res.json(storeUser);
 }
 
