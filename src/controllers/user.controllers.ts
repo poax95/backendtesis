@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
 import jwt from "jsonwebtoken";
 import config from "../config/config";
+import bcrypt from "bcrypt";
+import user from "../models/user";
 
 
 function createToken(user: IUser) {
@@ -87,12 +89,16 @@ export async function deleteUser(req: Request, res: Response): Promise<Response>
 export async function updateUser(req: Request, rest: Response): Promise<Response>{
   const { id } = req.params;
   const { nombre, apellido, rut, email, password } = req.body;
+  //se encripta denuevo la contraseña modificada
+  const salt = await bcrypt.genSalt(10);
+  const hash =  await bcrypt.hash(password, salt);
+  
   await User.findByIdAndUpdate(id, {
      nombre,
      apellido,
      rut,
      email,
-     password
+     password: hash,
      
   }, {new: true});
   return rest.json({
