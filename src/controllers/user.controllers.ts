@@ -93,6 +93,7 @@ export async function updateUser(req: Request, rest: Response): Promise<Response
      rut,
      email,
      password
+     
   }, {new: true});
   return rest.json({
       message: 'actualizado correctamente',

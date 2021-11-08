@@ -28,7 +28,7 @@ export async function getStore(req: Request, res: Response): Promise<Response> {
 export async function createStore(req: Request, res: Response): Promise<Response>
  {
 
-    const{ nombre_tienda,usuario, instagram , twitter, facebook, numero_telefono } = req.body;
+    const{ nombre_tienda,usuario, instagram , twitter, facebook, numero_telefono, descripcion } = req.body;
     console.log(req.file?.path)
     const newStore = {
         nombre_tienda: nombre_tienda,
@@ -37,7 +37,8 @@ export async function createStore(req: Request, res: Response): Promise<Response
         twitter: twitter,
         facebook: facebook,
         numero_telefono: numero_telefono,
-        imagePath: req.file?.path
+        imagePath: req.file?.path,
+        descripcion: descripcion,
      
     };
     const store = new Store(newStore);
@@ -65,13 +66,14 @@ export async function deleteStore(req: Request, res: Response): Promise<Response
 //para actualizar informacion de una foto
 export async function updateStore(req: Request, rest: Response): Promise<Response>{
     const { id } = req.params;
-    const { nombre_tienda, instagram , twitter , facebook , numero_telefono } = req.body;
+    const { nombre_tienda, instagram , twitter , facebook , numero_telefono, descripcion } = req.body;
     await Store.findByIdAndUpdate(id, {
        nombre_tienda,
        instagram,
        twitter,
        facebook, 
-       numero_telefono
+       numero_telefono,
+       descripcion
     }, {new: true});
     return rest.json({
         message: 'actualizado correctamente',

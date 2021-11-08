@@ -7,7 +7,8 @@ const schema = new Schema({
     twitter: String,
     facebook: String,
     numero_telefono: String,
-    imagePath: String
+    imagePath: String,
+    descripcion: String
 });
 
 interface IStore extends Document{
@@ -18,6 +19,7 @@ interface IStore extends Document{
     facebook: string;
     numero_telefono: string;
     imagePath: string;
+    descripcion: string;
 }
 
 export default model<IStore>('Store', schema);
