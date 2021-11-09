@@ -6,7 +6,16 @@ const schema = new Schema({
     categoria: String,
     comentario: String,
     precio: String,
-    imagePath: String
+    imagePath: String,
+    likes: {
+        type: Number,
+        default: 0
+    },
+    timestamp: {
+        type:Date,
+        default: Date.now
+    }
+
 });
 
 interface IPhoto extends Document{
@@ -16,6 +25,8 @@ interface IPhoto extends Document{
     comentario: string;
     precio: string;
     imagePath: string;
+    likes: number;
+    timestamp: Date;
 }
 
 export default model<IPhoto>('Photo', schema);
