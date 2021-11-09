@@ -68,3 +68,18 @@ export async function updatePhoto(req: Request, rest: Response): Promise<Respons
     })
 
 }
+
+export const likes = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const photo = await Photo.findById(id);
+    console.log(id);
+    if (photo) {
+      photo.likes = photo.likes + 1;
+      await photo.save();
+      res.json({ likes: photo.likes });
+    } else {
+      res.status(500).json({ error: "Internal Error" });
+    }
+  }
+
+  
