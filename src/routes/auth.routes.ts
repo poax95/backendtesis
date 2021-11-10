@@ -23,7 +23,7 @@ router.route('/user/:id')
     .put(updateUser) 
 router.delete(
     '/user/:id',
-    passport.authenticate("jwt", { session: false }),
+    
     deleteUser
   );        
 

@@ -72,7 +72,7 @@ export async function updatePhoto(req: Request, rest: Response): Promise<Respons
 export const likes = async (req: Request, res: Response) => {
     const { id } = req.params;
     const photo = await Photo.findById(id);
-    console.log(id);
+    //console.log(photo);
     if (photo) {
       photo.likes = photo.likes + 1;
       await photo.save();
