@@ -7,6 +7,8 @@ const schema = new Schema({
     comentario: String,
     precio: String,
     imagePath: String,
+    imageUrl: String,
+    public_id: String,
     likes: {
         type: Number,
         default: 0
@@ -25,6 +27,8 @@ interface IPhoto extends Document{
     comentario: string;
     precio: string;
     imagePath: string;
+    imageUrl: string;
+    public_id: string;
     likes: number;
     timestamp: Date;
 }

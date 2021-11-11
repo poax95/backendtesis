@@ -3,6 +3,13 @@ import path from 'path'
 import fs from 'fs-extra'
 
 import Photo from '../models/Photo'
+//conexion a cloudinary para subir las fotos
+var  cloudinary  =  require ( 'cloudinary' ) . v2
+cloudinary.config({
+    cloud_name: 'dwj4gnrgb'||process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: '753126792965228'||process.env.CLOUDINARY_API_KEY,
+    api_secret: 'v1C4eYo80bAXmTid3T1xowCZBfE'||process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function getPhotos(req: Request, res: Response): Promise<Response>{
     const photos = await Photo.find();
@@ -20,13 +27,18 @@ export async function createPhoto(req: Request, res: Response): Promise<Response
 
     const{ nombre, tienda,categoria , comentario, precio } = req.body;
     console.log(req.file?.path)
+    const result = await cloudinary.uploader.upload(req.file?.path)
+    console.log(result)
     const newPhoto = {
         nombre: nombre,
         tienda: tienda,
         categoria: categoria,
         comentario: comentario,
         precio: precio,
-        imagePath: req.file?.path
+        imagePath: req.file?.path,
+        imageUrl: result.url,
+        public_id: result.public_id,
+        
      
     };
     const photo = new Photo(newPhoto);
