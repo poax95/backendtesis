@@ -54,6 +54,7 @@ export async function createPhoto(req: Request, res: Response): Promise<Response
 export async function deletePhoto(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const photo = await Photo.findByIdAndRemove(id);
+    await cloudinary.uploader.destroy(photo?.public_id);
     if (photo) {
         await fs.unlink(path.resolve(photo.imagePath))
     }

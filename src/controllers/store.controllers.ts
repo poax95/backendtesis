@@ -33,6 +33,11 @@ export async function getStore(req: Request, res: Response): Promise<Response> {
      //datos que se entregaran al crear tienda
 export async function createStore(req: Request, res: Response): Promise<Response>
  {
+     //validacion de nombre tienda
+    const storet = await Store.findOne({ nombre_tienda: req.body.nombre_tienda });
+    if (storet) {
+      return res.status(400).json({ msg: "tienda ya existente" });
+    }
 
     const{ nombre_tienda,usuario, instagram , twitter, facebook, numero_telefono, descripcion } = req.body;
     console.log(req.file?.path)
@@ -63,6 +68,7 @@ export async function createStore(req: Request, res: Response): Promise<Response
 export async function deleteStore(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const store = await Store.findByIdAndRemove(id);
+    await cloudinary.uploader.destroy(store?.public_id);
     if (store) {
         await fs.unlink(path.resolve(store.imagePath))
     }

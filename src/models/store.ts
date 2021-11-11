@@ -9,7 +9,8 @@ const schema = new Schema({
     numero_telefono: String,
     imagePath: String,
     imageUrl: String,
-    descripcion: String
+    descripcion: String,
+    public_id: String,
 });
 
 interface IStore extends Document{
@@ -21,6 +22,7 @@ interface IStore extends Document{
     numero_telefono: string;
     imagePath: string;
     imageUrl: string;
+    public_id: string;
     descripcion: string;
 }
 
