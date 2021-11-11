@@ -3,6 +3,12 @@ import path from 'path'
 import fs from 'fs-extra'
 
 import Store from '../models/store'; 
+var  cloudinary  =  require ( 'cloudinary' ) . v2
+cloudinary.config({
+    cloud_name: 'dwj4gnrgb'||process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: '753126792965228'||process.env.CLOUDINARY_API_KEY,
+    api_secret: 'v1C4eYo80bAXmTid3T1xowCZBfE'||process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function getStores(req: Request, res: Response): Promise<Response>{
     const stores = await Store.find();
@@ -30,6 +36,7 @@ export async function createStore(req: Request, res: Response): Promise<Response
 
     const{ nombre_tienda,usuario, instagram , twitter, facebook, numero_telefono, descripcion } = req.body;
     console.log(req.file?.path)
+    const result = await cloudinary.uploader.upload(req.file?.path)
     const newStore = {
         nombre_tienda: nombre_tienda,
         usuario: usuario,
@@ -39,6 +46,8 @@ export async function createStore(req: Request, res: Response): Promise<Response
         numero_telefono: numero_telefono,
         imagePath: req.file?.path,
         descripcion: descripcion,
+        imageUrl: result.url,
+        public_id: result.public_id,
      
     };
     const store = new Store(newStore);

@@ -8,6 +8,7 @@ const schema = new Schema({
     facebook: String,
     numero_telefono: String,
     imagePath: String,
+    imageUrl: String,
     descripcion: String
 });
 
@@ -19,6 +20,7 @@ interface IStore extends Document{
     facebook: string;
     numero_telefono: string;
     imagePath: string;
+    imageUrl: string;
     descripcion: string;
 }
 
