@@ -15,6 +15,8 @@ router.route('/newpr')
 router.route('/newpr/:id')
     .get(getPhoto)
     .put(updatePhoto)
+router.route('/edit_product/:id')
+    .put(updatePhoto)   
 router.post("/producto/:id", likes);   
 
 router.delete(
