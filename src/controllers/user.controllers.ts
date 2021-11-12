@@ -88,7 +88,7 @@ export async function deleteUser(req: Request, res: Response): Promise<Response>
 //para actualizar informacion de un usuario
 export async function updateUser(req: Request, rest: Response): Promise<Response>{
   const { id } = req.params;
-  const { nombre, apellido, rut, email, password } = req.body;
+  const { nombre, apellido, email, password } = req.body;
   //se encripta denuevo la contraseña modificada
   const salt = await bcrypt.genSalt(10);
   const hash =  await bcrypt.hash(password, salt);
@@ -96,7 +96,6 @@ export async function updateUser(req: Request, rest: Response): Promise<Response
   await User.findByIdAndUpdate(id, {
      nombre,
      apellido,
-     rut,
      email,
      password: hash,
      

@@ -1,8 +1,11 @@
-import { Schema, model, Document} from "mongoose";
+import { Schema, model, Document, Mongoose, SchemaTypes} from "mongoose";
 
 const schema = new Schema({
     nombre_tienda: String,
-    usuario: String,
+    usuario: {
+        type: Schema.Types.ObjectId,
+        ref : 'user'
+    },
     instagram: String,
     twitter: String,
     facebook: String,
