@@ -16,12 +16,18 @@ const schema = new Schema({
     timestamp: {
         type:Date,
         default: Date.now
-    }
+    },
+    like: {
+        type: Array,
+        default: [],
+      },
+
 
 });
 
 interface IPhoto extends Document{
     nombre: string;
+    userId: string;
     tienda: string;
     categoria: string;
     comentario: string;
@@ -30,6 +36,7 @@ interface IPhoto extends Document{
     imageUrl: string;
     public_id: string;
     likes: number;
+    like: Array<string>;
     timestamp: Date;
 }
 

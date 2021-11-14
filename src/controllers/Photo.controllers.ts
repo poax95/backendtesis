@@ -95,4 +95,28 @@ export const likes = async (req: Request, res: Response) => {
     }
   }
 
-  
+  export const like = async (req: Request, res: Response) => {
+    try {
+    const { id } = req.params;
+    const photo = await Photo.findById(id);
+    
+    //console.log(photo);
+    //console.log(userId);
+    if (!photo.like.includes(req.body.userId)) {
+        await photo.updateOne({ $push: { like: req.body.userId } });
+        photo.likes = photo.likes + 1;
+        await photo.save();
+        //console.log(photo.likes)
+        res.status(200).json("Me gusta realizado");
+      } else {
+        await photo.updateOne({ $pull: { like: req.body.userId } });
+        photo.likes = photo.likes - 1;
+        await photo.save();
+        res.status(200).json("Me gusta borrado");
+        
+        //console.log(photo.likes)
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+}
