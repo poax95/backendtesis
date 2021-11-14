@@ -99,9 +99,7 @@ export const likes = async (req: Request, res: Response) => {
     try {
     const { id } = req.params;
     const photo = await Photo.findById(id);
-    
-    //console.log(photo);
-    //console.log(userId);
+    //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
     if (!photo.like.includes(req.body.userId)) {
         await photo.updateOne({ $push: { like: req.body.userId } });
         photo.likes = photo.likes + 1;
