@@ -18,7 +18,7 @@ router.route('/newpr/:id')
 router.route('/edit_product/:id')
     .put(updatePhoto)   
 router.post("/producto/:id/:userId",like); 
-router.get("/producto/:id",isliked);   
+router.get("/producto/:id/:userId",isliked);   
 
 router.delete(
     '/newpr/:id',
