@@ -130,10 +130,10 @@ export const isliked = async (req: Request, res: Response) => {
   //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
   if (!photo.like.includes(userId)) {
       //console.log(photo.likes)
-      res.status(200).json(false);
+      res.status(200).json("false");
     } else {
 
-      res.status(200).json(true);
+      res.status(200).json("true");
       
       //console.log(photo.likes)
     }
