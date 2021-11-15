@@ -3,6 +3,7 @@ import path from 'path'
 import fs from 'fs-extra'
 
 
+
 import Photo from '../models/Photo'
 //-----------------------------------conexion a cloudinary para subir las fotos-------------------------------------------------
 var  cloudinary  =  require ( 'cloudinary' ) . v2
@@ -130,10 +131,10 @@ export const isliked = async (req: Request, res: Response) => {
   //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
   if (!photo.like.includes(userId)) {
       //console.log(photo.likes)
-      res.status(200).json({like: true});
+      res.status(200).json({message: 'no tenia like'});
     } else {
 
-      res.status(200).json({like: false});
+      res.status(200).json({message: 'tenia like'});
       
       //console.log(photo.likes)
     }
