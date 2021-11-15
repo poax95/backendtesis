@@ -99,16 +99,17 @@ export const likes = async (req: Request, res: Response) => {
   export const like = async (req: Request, res: Response) => {
     try {
     const { id } = req.params;
+    const { userId } = req.params;
     const photo = await Photo.findById(id);
     //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
-    if (!photo.like.includes(req.body.userId)) {
-        await photo.updateOne({ $push: { like: req.body.userId } });
+    if (!photo.like.includes(userId)) {
+        await photo.updateOne({ $push: { like: userId } });
         photo.likes = photo.likes + 1;
         await photo.save();
         //console.log(photo.likes)
         res.status(200).json("Me gusta realizado");
       } else {
-        await photo.updateOne({ $pull: { like: req.body.userId } });
+        await photo.updateOne({ $pull: { like: userId } });
         photo.likes = photo.likes - 1;
         await photo.save();
         res.status(200).json("Me gusta borrado");
