@@ -125,9 +125,10 @@ export const likes = async (req: Request, res: Response) => {
 export const isliked = async (req: Request, res: Response) => {
   try {
   const { id } = req.params;
+  const { userId } = req.params;
   const photo = await Photo.findById(id);
   //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
-  if (!photo.like.includes(req.body.userId)) {
+  if (!photo.like.includes(userId)) {
       //console.log(photo.likes)
       res.status(200).json(false);
     } else {
