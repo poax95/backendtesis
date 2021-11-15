@@ -2,7 +2,7 @@ import {Router} from 'express';
 import passport from "passport";
 const router = Router();
 
-import {createPhoto, getPhotos, getPhoto, deletePhoto, updatePhoto, likes, like} from '../controllers/Photo.controllers'
+import {createPhoto, getPhotos, getPhoto, deletePhoto, updatePhoto, likes, like,isliked } from '../controllers/Photo.controllers'
 
 
 import multer from '../libs/multer'
@@ -17,7 +17,8 @@ router.route('/newpr/:id')
     .put(updatePhoto)
 router.route('/edit_product/:id')
     .put(updatePhoto)   
-router.post("/producto/:id",likes);   
+router.post("/producto/:id",likes); 
+router.get("/producto/:id",isliked);   
 
 router.delete(
     '/newpr/:id',

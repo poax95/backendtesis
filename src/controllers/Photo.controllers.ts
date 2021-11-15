@@ -2,15 +2,16 @@ import{Request, Response} from 'express'
 import path from 'path'
 import fs from 'fs-extra'
 
+
 import Photo from '../models/Photo'
-//conexion a cloudinary para subir las fotos
+//-----------------------------------conexion a cloudinary para subir las fotos-------------------------------------------------
 var  cloudinary  =  require ( 'cloudinary' ) . v2
 cloudinary.config({
     cloud_name: 'dwj4gnrgb'||process.env.CLOUDINARY_CLOUD_NAME,
     api_key: '753126792965228'||process.env.CLOUDINARY_API_KEY,
     api_secret: 'v1C4eYo80bAXmTid3T1xowCZBfE'||process.env.CLOUDINARY_API_SECRET,
 });
-
+//------------------------------------------------------------------------------------------------------------------------------
 export async function getPhotos(req: Request, res: Response): Promise<Response>{
     const photos = await Photo.find();
     return res.json(photos);
@@ -21,7 +22,7 @@ export async function getPhoto(req: Request, res: Response): Promise<Response> {
     const photo = await Photo.findById(id);
     return res.json(photo);
 }
-     //datos que se entregaran al subir el producto
+     //----------------------------datos que se entregaran al subir el producto--------------------------------------------------
 export async function createPhoto(req: Request, res: Response): Promise<Response>
  {
 
@@ -50,7 +51,7 @@ export async function createPhoto(req: Request, res: Response): Promise<Response
     })
 
 };
-//funcion para eliminar foto
+//----------------------------------------funcion para eliminar foto-----------------------------------------------------------
 export async function deletePhoto(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const photo = await Photo.findByIdAndRemove(id);
@@ -64,7 +65,7 @@ export async function deletePhoto(req: Request, res: Response): Promise<Response
     })
 }
 
-//para actualizar informacion de una foto
+//---------------------------------------para actualizar informacion de una foto------------------------------------------------
 export async function updatePhoto(req: Request, rest: Response): Promise<Response>{
     const { id } = req.params;
     const { nombre, tienda, categoria, comentario, precio } = req.body;
@@ -94,7 +95,7 @@ export const likes = async (req: Request, res: Response) => {
       res.status(500).json({ error: "Internal Error" });
     }
   }
-
+//---------------------------------------funcion para controlar el envio de likes----------------------------------------------
   export const like = async (req: Request, res: Response) => {
     try {
     const { id } = req.params;
@@ -118,3 +119,24 @@ export const likes = async (req: Request, res: Response) => {
       res.status(500).json(err);
     }
 }
+
+//-----------------------------------------se revisara si tiene el like---------------------------------------------------------
+export const isliked = async (req: Request, res: Response) => {
+  try {
+  const { id } = req.params;
+  const photo = await Photo.findById(id);
+  //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
+  if (!photo.like.includes(req.body.userId)) {
+      //console.log(photo.likes)
+      res.status(200).json(false);
+    } else {
+
+      res.status(200).json(true);
+      
+      //console.log(photo.likes)
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
+
