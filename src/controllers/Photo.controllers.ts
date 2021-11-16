@@ -146,4 +146,26 @@ export const isliked = async (req: Request, res: Response) => {
     res.status(500).json(err);
   }
 }
+//------------------------------------------------------------------------------------------------------------------------------
+export const isliked2 = async (req: Request, res: Response) => {
+  try {
+  const { id } = req.params;
+  const { userId } = req.params;
+  const photo = await Photo.findById(id);
+  //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
+  if (!photo.like.includes(userId)) {
+      
+      res.status(200).json({like: photo.like,unliked: false});
+     
+      
+    } else {
+      
 
+      res.status(200).json({like: photo.like,liked: true});
+      
+      //console.log(photo.likes)
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
