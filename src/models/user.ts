@@ -2,6 +2,7 @@ import { model, Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
 export interface IUser extends Document {
+  tiendaId: string;
   nombre: string;
   apellido: string;
   email: string;
@@ -27,6 +28,8 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  tiendaId: String,
+
   
 
 });

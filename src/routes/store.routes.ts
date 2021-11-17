@@ -2,7 +2,7 @@ import {Router} from 'express';
 import passport from "passport";
 const router = Router();
 
-import {createStore, getStores, getStore, deleteStore, updateStore, getStoreUser} from '../controllers/store.controllers'
+import {createStore, getStores, getStore, deleteStore, updateStore, getStoreUser, searchStore} from '../controllers/store.controllers'
 
 
 import multer from '../libs/multer'
@@ -11,7 +11,9 @@ router.route('/store')
     .get(getStores)
     .post(multer.single('image'), createStore)
 router.route('/stores/:user')
-    .get(getStoreUser)    
+    .get(getStoreUser)  
+  
+  
     
 router.route('/store/:id')
     .get(getStore)

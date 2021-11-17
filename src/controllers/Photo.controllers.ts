@@ -1,6 +1,7 @@
 import{Request, Response} from 'express'
 import path from 'path'
-import fs from 'fs-extra'
+import fs, { promises } from 'fs-extra'
+
 
 
 
@@ -168,4 +169,31 @@ export const isliked2 = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json(err);
   }
+}
+
+export async function getislikedPhoto(req: Request, res: Response): Promise<boolean> {
+  let isliked=true;
+  const { id } = req.params;
+  const { userId } = req.params;
+  const photo = await Photo.findById(id);
+  if (!photo.like.includes(userId)) {
+    isliked=false;
+    console.log("falso")
+    return(isliked)
+
+  } else {
+    isliked=true
+    console.log(true)
+    return(isliked)
+
+}
+}
+
+//-------------------------------------------busqueda de fotos---------------------------------------------------------------
+export async function searchPhotos(req: Request, res: Response): Promise<Response>{
+  const { categoria } = req.body;
+  
+  const photos = await Photo.find({categoria :categoria});
+
+  return res.json(photos);
 }
