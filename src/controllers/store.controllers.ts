@@ -98,10 +98,10 @@ export async function updateStore(req: Request, rest: Response): Promise<Respons
 }
 //--------------------------buscar tienda por nombre---------------------------------------------------------------
 export async function searchStore(req: Request, res: Response): Promise<Response>{
-    const { tienda } = req.params;
+    const  tienda  = req.params.tienda;
     console.log(tienda)
-    const store = await Store.find({nombre_tienda: tienda});
+    const storetienda = await Store.findOne({nombre_tienda: tienda});
     
   
-    return res.json(store);
+    return res.json(storetienda);
   }

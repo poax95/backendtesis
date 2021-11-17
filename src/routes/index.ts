@@ -34,7 +34,7 @@ router.delete(
     
 router.get("/producto/categoria",searchPhotos); 
 
-router.post('/irstore/:tienda',searchStore);
+router.get('/irstore/:tienda',searchStore);
 
 
 export default router;
