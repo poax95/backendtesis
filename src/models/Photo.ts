@@ -3,6 +3,10 @@ import { Schema, model, Document} from "mongoose";
 const schema = new Schema({
     nombre: String,
     tienda: String,
+    tiendaId: {
+        type: Schema.Types.ObjectId,
+    ref : 'store'
+    },
     categoria: String,
     comentario: String,
     precio: String,
@@ -29,6 +33,7 @@ interface IPhoto extends Document{
     nombre: string;
     userId: string;
     tienda: string;
+    tiendaId: string;
     categoria: string;
     comentario: string;
     precio: string;

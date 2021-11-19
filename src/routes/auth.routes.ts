@@ -2,6 +2,8 @@ import {Router} from 'express'
 import {
   deleteUser,
   getUser,
+  resetPassword,
+  searchUser,
   signIn,
   signUp,
   updateUser,
@@ -14,6 +16,9 @@ const router = Router();
  
 router.post('/registro', signUp);
 router.post('/login', signIn);
+//-----------------------------------para recuperar contraseñas----------------------------------------------------------
+router.post('/resetpassword', searchUser);
+router.post('/newpassword/:id', resetPassword);
 
 router.route('/user')
     .get(getUsers)

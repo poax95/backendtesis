@@ -1,11 +1,14 @@
 import{Request, Response} from 'express'
 import path from 'path'
 import fs, { promises } from 'fs-extra'
+import { Mongoose } from 'mongoose'
 
 
 
 
 import Photo from '../models/Photo'
+import { Db } from 'mongoose/node_modules/mongodb'
+import user from '../models/user'
 //-----------------------------------conexion a cloudinary para subir las fotos-------------------------------------------------
 var  cloudinary  =  require ( 'cloudinary' ) . v2
 cloudinary.config({
@@ -29,7 +32,7 @@ export async function createPhoto(req: Request, res: Response): Promise<Response
  {
 
     const{ nombre, tienda,categoria , comentario, precio } = req.body;
-    console.log(req.file?.path)
+    //console.log(req.file?.path)
     const result = await cloudinary.uploader.upload(req.file?.path)
     console.log(result)
     const newPhoto = {
@@ -147,14 +150,14 @@ export const isliked = async (req: Request, res: Response) => {
     res.status(500).json(err);
   }
 }
-//------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------funcion utilizada para la revision del like activo-------------------------------------------------------
 export const isliked2 = async (req: Request, res: Response) => {
   try {
   const { id } = req.params;
   const { userId } = req.params;
   const photo = await Photo.findById(id);
   //si no encuentra la id de usuario en el arreglo agrega el id al arreglo y aumenta el contador
-  if (!photo.like.includes(userId)) {
+  if (!photo.like.includes(userId) ) {
       
       res.status(200).json({like: photo.like,unliked: false});
      
@@ -170,7 +173,7 @@ export const isliked2 = async (req: Request, res: Response) => {
     res.status(500).json(err);
   }
 }
-
+//---------------------------------------------------------------------------------------------------------------------------
 export async function getislikedPhoto(req: Request, res: Response): Promise<boolean> {
   let isliked=true;
   const { id } = req.params;
@@ -197,3 +200,4 @@ export async function searchPhotos(req: Request, res: Response): Promise<Respons
 
   return res.json(photos);
 }
+

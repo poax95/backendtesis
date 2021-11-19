@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import config from "../config/config";
 import bcrypt from "bcrypt";
 import user from "../models/user";
+const nodemailer = require("nodemailer");
 
 
 function createToken(user: IUser) {
@@ -51,7 +52,7 @@ export const signIn = async (
 
   const isMatch = await user.comparePassword(req.body.password);
   if (isMatch) {
-    return res.status(200).json({ token: createToken(user),user: user.id });
+    return res.status(200).json({ token: createToken(user),user: user.id, isadmin: user.isAdmin });
   }
 
   return res.status(400).json({
@@ -77,8 +78,8 @@ export async function getUser(req: Request, res: Response): Promise<Response> {
 }
 export async function deleteUser(req: Request, res: Response): Promise<Response> {
   const { id } = req.params;
+
   const user = await User.findByIdAndRemove(id);
-  
   return res.json({
       message: 'usuario eliminado',
       user
@@ -89,6 +90,7 @@ export async function deleteUser(req: Request, res: Response): Promise<Response>
 export async function updateUser(req: Request, rest: Response): Promise<Response>{
   const { id } = req.params;
   const { nombre, apellido, email, password } = req.body;
+  
   //se encripta denuevo la contraseña modificada
   const salt = await bcrypt.genSalt(10);
   const hash =  await bcrypt.hash(password, salt);
@@ -97,7 +99,7 @@ export async function updateUser(req: Request, rest: Response): Promise<Response
      nombre,
      apellido,
      email,
-     password: hash,
+     password: hash ,
      
   }, {new: true});
   return rest.json({
@@ -107,3 +109,45 @@ export async function updateUser(req: Request, rest: Response): Promise<Response
 
 }
 
+//---------------------------------------------------------------------------------------------------------------------
+export async function searchUser(req: Request, res: Response): Promise<Response>{
+  const  email  = req.body.email;
+  console.log(email)
+  try {
+    
+  } catch (error) {
+    
+    return res.status(400).json({ msg: "algo salio mal" });
+    
+  }
+  const user = await User.findOne({email: email});
+  if (!user) {
+    return res.status(400).json({ msg: "email incorrecto " });
+  }
+  else{
+    console.log(user.password)
+    return res.json(user);
+  }
+
+  
+}
+//-----------------------------------------------------------------------------------------------------------------
+export async function resetPassword(req: Request, rest: Response): Promise<Response>{
+  const { id } = req.params;
+  const {  password } = req.body;
+  
+  //se encripta denuevo la contraseña modificada
+  const salt = await bcrypt.genSalt(10);
+  const hash =  await bcrypt.hash(password, salt);
+  
+  await User.findByIdAndUpdate(id, {
+  
+     password: hash ,
+     
+  }, {new: true});
+  return rest.json({
+      message: 'actualizado correctamente',
+      updateUser
+  })
+
+}
