@@ -5,6 +5,7 @@ import config from "../config/config";
 import bcrypt from "bcrypt";
 import user from "../models/user";
 const nodemailer = require("nodemailer");
+import { transporter } from '../config/mailer'
 
 
 function createToken(user: IUser) {
@@ -109,29 +110,45 @@ export async function updateUser(req: Request, rest: Response): Promise<Response
 
 }
 
-//---------------------------------------------------------------------------------------------------------------------
+//-------------------------------------funcion de busqueda por email--------------------------------------------
 export async function searchUser(req: Request, res: Response): Promise<Response>{
   const  email  = req.body.email;
-  console.log(email)
-  try {
-    
-  } catch (error) {
-    
-    return res.status(400).json({ msg: "algo salio mal" });
-    
-  }
+  //console.log(email)
+  //let verificationlink;
+
+  //-----------------------------------------enviar correos-----------------------------------------------------------------
+  
+  //------------------------------------------------------------------------------------------------------------------------------
   const user = await User.findOne({email: email});
+   const verificationlink= user.id;
+  
   if (!user) {
     return res.status(400).json({ msg: "email incorrecto " });
   }
   else{
-    console.log(user.password)
-    return res.json(user);
+    try {
+      // send mail with defined transport object
+    await transporter.sendMail({
+     from: '"Olvidaste tu contraseña" <mario.diaz.quiroga.91@gmail.com>', // sender address
+     to: email , // list of receivers
+     subject: "Olvidaste tu contraseña", // Subject line
+     //text: "Hello world?", // plain text body
+     html: `<b>Haz click en el siguiente enlace o copielo para cambiar tu contraseña:</b>
+     <a href= "http://localhost:4200/restablecer/${verificationlink}">http://localhost:4200/restablecer/${verificationlink}</a>`,
+   });
+   return res.json(user.id);
+   } catch (error) {
+     
+     return res.status(400).json({ msg: "algo salio mal" });
+     
+   }
+    
+    
   }
 
   
 }
-//-----------------------------------------------------------------------------------------------------------------
+//----------------------------cambiar contraseña------------------------------------------------------------------------------
 export async function resetPassword(req: Request, rest: Response): Promise<Response>{
   const { id } = req.params;
   const {  password } = req.body;
