@@ -120,13 +120,14 @@ export async function searchUser(req: Request, res: Response): Promise<Response>
   
   //------------------------------------------------------------------------------------------------------------------------------
   const user = await User.findOne({email: email});
-   const verificationlink= user.id;
+   
   
   if (!user) {
     return res.status(400).json({ msg: "email incorrecto " });
   }
   else{
     try {
+      const verificationlink= user.id;
       // send mail with defined transport object
     await transporter.sendMail({
      from: '"Olvidaste tu contraseña" <mario.diaz.quiroga.91@gmail.com>', // sender address
